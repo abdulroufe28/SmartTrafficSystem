@@ -240,6 +240,30 @@ The system also supports report export functionality for further analysis and do
 
 ---
 
+---
+
+## 📸 Screenshots
+
+### 🔐 Login Interface
+
+The administrator login interface provides access to the Smart Traffic Management System.
+
+![Login Interface](screenshots/login.png)
+
+### 🚦 Live Traffic Dashboard
+
+The dashboard provides real-time vehicle detection, vehicle counting, traffic density analysis, emergency alerts, and live traffic monitoring.
+
+![Dashboard](screenshots/dashboard.png)
+
+### 📋 Traffic Reports
+
+The reports module provides traffic statistics, daily reports, traffic density information, emergency records, and report export options.
+
+![Traffic Reports](screenshots/reports.png)
+
+---
+
 ## 🎯 Project Objective
 
 The main objective of this project is to develop an intelligent traffic management platform that combines **AI-based vehicle detection, traffic analysis, adaptive signal management, and web-based monitoring** to support more efficient traffic management.
