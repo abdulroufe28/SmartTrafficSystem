@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Traffic Reports</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            🚦 Smart Traffic
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/dashboard">
+                    📊 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/analytics">
+                    📈 Analytics
+                </a>
+            </li>
+
+            <li>
+                <a href="/emergency">
+                    🚑 Emergency
+                </a>
+            </li>
+
+            <li>
+                <a href="/signals">
+                    🚦 Signal Control
+                </a>
+            </li>
+
+            <li>
+                <a href="/reports">
+                    📄 Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="/settings">
+                    ⚙️ Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="/">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="main-content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <h1>
+                Traffic Reports
+            </h1>
+
+            <h3>
+                AI Traffic Analysis Reports
+            </h3>
+
+        </div>
+
+        <!-- REPORT CARDS -->
+
+        <div class="cards">
+
+            <div class="card blue">
+
+                📄
+                <h2>
+                    12
+                </h2>
+
+                <p>Generated Reports</p>
+
+            </div>
+
+            <div class="card green">
+
+                🚗
+                <h2>
+                    542
+                </h2>
+
+                <p>Total Vehicles Today</p>
+
+            </div>
+
+            <div class="card orange">
+
+                🚦
+                <h2>
+                    MEDIUM
+                </h2>
+
+                <p>Average Density</p>
+
+            </div>
+
+            <div class="card red">
+
+                🚑
+                <h2>
+                    4
+                </h2>
+
+                <p>Emergency Alerts</p>
+
+            </div>
+
+        </div>
+
+        <!-- REPORT TABLE -->
+
+        <div class="chart-box">
+
+            <h2>
+                Daily Traffic Reports
+            </h2>
+
+            <table
+                style="
+                    width:100%;
+                    margin-top:20px;
+                    border-collapse:collapse;
+                ">
+
+                <tr style="background:#ddd;">
+
+                    <th>Date</th>
+                    <th>Vehicles</th>
+                    <th>Density</th>
+                    <th>Emergencies</th>
+                    <th>Status</th>
+
+                </tr>
+
+                <tr>
+
+                    <td>15-05-2026</td>
+                    <td>542</td>
+                    <td>Medium</td>
+                    <td>4</td>
+                    <td style="color:green;">
+                        Completed
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>14-05-2026</td>
+                    <td>612</td>
+                    <td>High</td>
+                    <td>7</td>
+                    <td style="color:green;">
+                        Completed
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>13-05-2026</td>
+                    <td>430</td>
+                    <td>Low</td>
+                    <td>2</td>
+                    <td style="color:green;">
+                        Completed
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+        <!-- SUMMARY -->
+
+        <div class="dashboard-grid">
+
+            <div class="chart-box">
+
+                <h2>
+                    Report Summary
+                </h2>
+
+                <br>
+
+                <p>
+                    ✔ AI traffic monitoring completed successfully
+                </p>
+
+                <br>
+
+                <p>
+                    ✔ Vehicle density analyzed in real-time
+                </p>
+
+                <br>
+
+                <p>
+                    ✔ Emergency response optimized
+                </p>
+
+                <br>
+
+                <p>
+                    ✔ Smart signal system active
+                </p>
+
+            </div>
+
+            <div class="chart-box">
+
+                <h2>
+                    Export Reports
+                </h2>
+
+                <br>
+
+             <a href="/download-report">
+
+    <button
+        style="
+            padding:15px;
+            width:100%;
+            border:none;
+            background:#007bff;
+            color:white;
+            border-radius:10px;
+            font-size:16px;
+        ">
+
+        Download PDF Report
+
+    </button>
+
+</a>
+
+                <br><br>
+
+               <a href="/download-csv">
+
+    <button
+        style="
+            padding:15px;
+            width:100%;
+            border:none;
+            background:#28a745;
+            color:white;
+            border-radius:10px;
+            font-size:16px;
+        ">
+
+        Export CSV Data
+
+    </button>
+
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

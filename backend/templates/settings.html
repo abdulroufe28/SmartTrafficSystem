@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Settings</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            🚦 Smart Traffic
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/dashboard">
+                    📊 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/analytics">
+                    📈 Analytics
+                </a>
+            </li>
+
+            <li>
+                <a href="/emergency">
+                    🚑 Emergency
+                </a>
+            </li>
+
+            <li>
+                <a href="/signals">
+                    🚦 Signal Control
+                </a>
+            </li>
+
+            <li>
+                <a href="/reports">
+                    📄 Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="/settings">
+                    ⚙️ Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="/">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <h1>
+            System Settings
+        </h1>
+
+        <h3>
+            Admin Control Panel
+        </h3>
+
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="cards">
+
+        <div class="card blue">
+
+            👤
+            <span id="total-users">
+                2 Users
+            </span>
+
+        </div>
+
+        <div class="card green">
+
+            ⚙️
+            <span>
+                System Active
+            </span>
+
+        </div>
+
+        <div class="card yellow">
+
+            🚦
+            <span id="emergency-mode">
+                OFF
+            </span>
+
+        </div>
+
+        <div class="card red">
+
+            🔒
+            <span>
+                Admin Access
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- SETTINGS GRID -->
+
+    <div class="dashboard-grid">
+
+        <!-- ADD USER -->
+
+        <div class="chart-box">
+
+            <h2>
+                Add New User
+            </h2>
+
+            <br>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter Username"
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin-bottom:15px;
+                "
+            >
+
+            <select
+                id="role"
+                style="
+                    width:100%;
+                    padding:12px;
+                    margin-bottom:15px;
+                "
+            >
+
+                <option>
+                    Admin
+                </option>
+
+                <option>
+                    Operator
+                </option>
+
+            </select>
+
+            <button
+                onclick="addUser()"
+                style="
+                    width:100%;
+                    padding:12px;
+                    background:#2563eb;
+                    color:white;
+                    border:none;
+                    border-radius:10px;
+                "
+            >
+
+                Add User
+
+            </button>
+
+        </div>
+
+        <!-- USER TABLE -->
+
+        <div class="chart-box">
+
+            <h2>
+                User Management
+            </h2>
+
+            <br>
+
+            <table
+                id="user-table"
+                style="
+                    width:100%;
+                    border-collapse:collapse;
+                "
+            >
+
+                <tr style="background:#ddd;">
+
+                    <th>
+                        Username
+                    </th>
+
+                    <th>
+                        Role
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Abdul
+                    </td>
+
+                    <td>
+                        Admin
+                    </td>
+
+                    <td>
+
+                        <button
+                            onclick="deleteUser(this)"
+                            style="
+                                background:red;
+                                color:white;
+                                border:none;
+                                padding:8px 12px;
+                                border-radius:8px;
+                            "
+                        >
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+                        Krishna
+                    </td>
+
+                    <td>
+                        Operator
+                    </td>
+
+                    <td>
+
+                        <button
+                            onclick="deleteUser(this)"
+                            style="
+                                background:red;
+                                color:white;
+                                border:none;
+                                padding:8px 12px;
+                                border-radius:8px;
+                            "
+                        >
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function addUser() {
+
+    const username =
+        document.getElementById("username").value;
+
+    const role =
+        document.getElementById("role").value;
+
+    if(username == "") {
+
+        alert("Enter Username");
+
+        return;
+    }
+
+    const table =
+        document.getElementById("user-table");
+
+    const row = table.insertRow();
+
+    row.innerHTML = `
+
+        <td>${username}</td>
+
+        <td>${role}</td>
+
+        <td>
+
+            <button
+                onclick="deleteUser(this)"
+                style="
+                    background:red;
+                    color:white;
+                    border:none;
+                    padding:8px 12px;
+                    border-radius:8px;
+                "
+            >
+
+                Delete
+
+            </button>
+
+        </td>
+    `;
+
+    updateUserCount();
+
+    document.getElementById("username").value = "";
+}
+
+
+function deleteUser(button) {
+
+    const row = button.parentNode.parentNode;
+
+    row.remove();
+
+    updateUserCount();
+}
+
+
+function updateUserCount() {
+
+    const table =
+        document.getElementById("user-table");
+
+    const totalUsers =
+        table.rows.length - 1;
+
+    document.getElementById("total-users")
+    .innerText = totalUsers + " Users";
+}
+
+
+// EMERGENCY MODE TOGGLE
+let emergency = false;
+
+setInterval(() => {
+
+    emergency = !emergency;
+
+    document.getElementById("emergency-mode")
+    .innerText =
+        emergency ? "ON" : "OFF";
+
+}, 5000);
+
+</script>
+
+</body>
+
+</html>

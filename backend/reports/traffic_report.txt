@@ -1,0 +1,6 @@
+SMART TRAFFIC MANAGEMENT REPORT
+
+Total Vehicles Detected : 542
+Traffic Density : MEDIUM
+Emergency Alerts : 4
+AI Monitoring Status : ACTIVE

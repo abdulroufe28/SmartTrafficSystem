@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            🚦 Smart Traffic
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/dashboard">
+                    📊 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/analytics">
+                    📈 Analytics
+                </a>
+            </li>
+
+            <li>
+                <a href="/emergency">
+                    🚑 Emergency
+                </a>
+            </li>
+
+            <li>
+                <a href="/signals">
+                    🚦 Signal Control
+                </a>
+            </li>
+
+            <li>
+                <a href="/reports">
+                    📄 Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="/settings">
+                    ⚙️ Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="/">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <h1>
+                Traffic Analytics
+            </h1>
+
+            <h3>
+                Live AI Monitoring
+            </h3>
+
+        </div>
+
+        <!-- CARDS -->
+
+        
+     <div class="cards">
+
+         <div class="card blue">
+
+        🚗
+        <span id="vehicle-count">
+            0
+        </span>
+
+         </div>
+
+        <div class="card green">
+
+        🚦
+        <span id="traffic-density">
+            LOW
+        </span>
+
+        </div>
+
+         <div class="card yellow">
+
+        ⏱
+        <span id="signal-time">
+            10 sec
+        </span>
+
+        </div>
+
+          <div class="card red">
+
+        🚑
+        <span id="emergency-status">
+            NORMAL
+        </span>
+
+          </div>
+
+</div>
+
+        <!-- CHART GRID -->
+
+        <div class="dashboard-grid">
+
+            <!-- BAR CHART -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Vehicle Count Analysis
+                </h2>
+
+                <canvas id="barChart"></canvas>
+
+            </div>
+
+            <!-- PIE CHART -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Vehicle Distribution
+                </h2>
+
+                <canvas id="pieChart"></canvas>
+
+            </div>
+
+            <!-- TABLE -->
+
+            <div class="chart-box"
+                 style="grid-column: span 2;">
+
+                <h2>
+                    Junction Summary
+                </h2>
+
+                <table
+                    style="
+                        width:100%;
+                        margin-top:20px;
+                        border-collapse:collapse;
+                    ">
+
+                    <tr style="background:#ddd;">
+
+                        <th>Junction</th>
+                        <th>Vehicles</th>
+                        <th>Density</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>A</td>
+                        <td>42</td>
+                        <td>Medium</td>
+                        <td style="color:green;">
+                            Normal
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>B</td>
+                        <td>78</td>
+                        <td>High</td>
+                        <td style="color:red;">
+                            Congested
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>C</td>
+                        <td>30</td>
+                        <td>Low</td>
+                        <td style="color:green;">
+                            Smooth
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const barCtx = document.getElementById("barChart");
+
+let labels = [];
+
+let vehicleData = [];
+
+// LIVE BAR CHART
+const liveChart = new Chart(barCtx, {
+
+    type: "line",
+
+    data: {
+
+        labels: labels,
+
+        datasets: [{
+
+            label: "Live Vehicle Count",
+
+            data: vehicleData,
+
+            borderWidth: 3,
+
+            tension: 0.4
+
+        }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        scales: {
+
+            y: {
+
+                beginAtZero: true
+
+            }
+        }
+    }
+});
+// LIVE ANALYTICS UPDATE
+async function updateAnalytics() {
+
+    try {
+
+        const response = await fetch("/traffic_data");
+
+        const data = await response.json();
+
+        // UPDATE CARDS
+        document.getElementById("vehicle-count")
+            .innerText = data.vehicle_count;
+
+        document.getElementById("traffic-density")
+            .innerText = data.traffic_density;
+
+        document.getElementById("signal-time")
+            .innerText = data.signal_time + " sec";
+
+        document.getElementById("emergency-status")
+            .innerText = data.emergency_status;
+
+        // UPDATE LIVE GRAPH
+        const currentTime =
+            new Date().toLocaleTimeString();
+
+        labels.push(currentTime);
+
+        vehicleData.push(data.vehicle_count);
+
+        // LIMIT GRAPH POINTS
+        if (labels.length > 10) {
+
+            labels.shift();
+
+            vehicleData.shift();
+        }
+
+        liveChart.update();
+
+        const total = data.vehicle_count;
+
+        pieChart.data.datasets[0].data = [
+
+    Math.round(total * 0.5),
+
+    Math.round(total * 0.2),
+
+    Math.round(total * 0.1),
+
+    Math.round(total * 0.2)
+];
+
+pieChart.update();
+
+    }
+
+    catch(error) {
+
+        console.log(error);
+
+    }
+}
+
+
+// LOAD DATA
+updateAnalytics();
+
+
+// AUTO UPDATE
+setInterval(updateAnalytics, 2000);
+
+
+// PIE CHART
+const pieCtx = document.getElementById("pieChart");
+
+const pieChart = new Chart(pieCtx, {
+
+    type: "pie",
+
+    data: {
+
+        labels: [
+            "Cars",
+            "Bus",
+            "Truck",
+            "Bike"
+        ],
+
+        datasets: [{
+
+            data: [0, 0, 0, 0]
+
+        }]
+    }
+});
+
+</script>
+
+</body>
+
+</html>

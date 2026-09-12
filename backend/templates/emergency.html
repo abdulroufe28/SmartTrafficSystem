@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency Monitoring</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            🚦 Smart Traffic
+        </div>
+
+        <ul>
+
+            <li><a href="/dashboard">📊 Dashboard</a></li>
+
+            <li><a href="/analytics">📈 Analytics</a></li>
+
+            <li><a href="/emergency">🚑 Emergency</a></li>
+
+            <li><a href="/signals">🚦 Signal Control</a></li>
+
+            <li><a href="/reports">📄 Reports</a></li>
+
+            <li><a href="/settings">⚙️ Settings</a></li>
+
+            <li><a href="/">🚪 Logout</a></li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <h1>
+                Emergency Vehicle Monitoring
+            </h1>
+
+            <h3>
+                AI Emergency Detection System
+            </h3>
+
+        </div>
+
+        <!-- ALERT CARDS -->
+       <div class="cards">
+
+    <div class="card red">
+
+        🚑
+        <span id="emergency-status">
+            NORMAL
+        </span>
+
+    </div>
+
+    <div class="card yellow">
+
+        🚦
+        <span id="priority-mode">
+            DISABLED
+        </span>
+
+    </div>
+
+    <div class="card blue">
+
+        🚗
+        <span id="vehicle-count">
+            0
+        </span>
+
+    </div>
+
+    <div class="card green">
+
+        📍
+        <span id="traffic-density">
+            LOW
+        </span>
+
+    </div>
+
+</div>
+       
+        <!-- MAIN GRID -->
+
+        <div class="dashboard-grid">
+
+            <!-- LIVE VIDEO -->
+
+            <div class="video-box">
+
+                <h2>
+                    Emergency Monitoring Feed
+                </h2>
+
+                <img
+                    src="/video_feed"
+                    style="
+                        width:100%;
+                        height:500px;
+                        object-fit:cover;
+                        border-radius:15px;
+                    "
+                >
+
+            </div>
+
+            <!-- ALERT PANEL -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Emergency Alerts
+                </h2>
+
+                <br>
+
+                <div
+                    style="
+                        background:#ff4d4d;
+                        color:white;
+                        padding:20px;
+                        border-radius:10px;
+                    ">
+
+                    🚑 Ambulance detected at Junction B
+
+                </div>
+
+                <br>
+
+                <div
+                    style="
+                        background:#ffa500;
+                        color:white;
+                        padding:20px;
+                        border-radius:10px;
+                    ">
+
+                    🚦 Signal priority activated
+
+                </div>
+
+                <br>
+
+                <div
+                    style="
+                        background:#28a745;
+                        color:white;
+                        padding:20px;
+                        border-radius:10px;
+                    ">
+
+                    ✔ Emergency route cleared
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+async function loadEmergencyData() {
+
+    try {
+
+        const response = await fetch("/traffic_data");
+
+        const data = await response.json();
+
+        // EMERGENCY STATUS
+        document.getElementById("emergency-status")
+        .innerText = data.emergency_status;
+
+        // VEHICLE COUNT
+        document.getElementById("vehicle-count")
+        .innerText = data.vehicle_count;
+
+        // TRAFFIC DENSITY
+        document.getElementById("traffic-density")
+        .innerText = data.traffic_density;
+
+        // PRIORITY MODE
+        if(data.emergency_status == "ACTIVE") {
+
+            document.getElementById("priority-mode")
+            .innerText = "ENABLED";
+
+        }
+
+        else {
+
+            document.getElementById("priority-mode")
+            .innerText = "DISABLED";
+        }
+
+    }
+
+    catch(error) {
+
+        console.log(error);
+
+    }
+}
+
+loadEmergencyData();
+
+setInterval(loadEmergencyData, 2000);
+
+</script>
+
+
+</body>
+
+</html>

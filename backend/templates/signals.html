@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Signal Control</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            🚦 Smart Traffic
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/dashboard">
+                    📊 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/analytics">
+                    📈 Analytics
+                </a>
+            </li>
+
+            <li>
+                <a href="/emergency">
+                    🚑 Emergency
+                </a>
+            </li>
+
+            <li>
+                <a href="/signals">
+                    🚦 Signal Control
+                </a>
+            </li>
+
+            <li>
+                <a href="/reports">
+                    📄 Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="/settings">
+                    ⚙️ Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="/">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN -->
+
+    <div class="main-content">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <h1>
+            Smart Signal Control
+        </h1>
+
+        <h3>
+            AI-Based Adaptive Traffic Signals
+        </h3>
+
+    </div>
+
+    <!-- CARDS -->
+
+    <div class="cards">
+
+        <div class="card green">
+
+            🚦
+            <span id="signal-status">
+                GREEN
+            </span>
+
+        </div>
+
+        <div class="card yellow">
+
+            ⏱
+            <span id="signal-time">
+                10 sec
+            </span>
+
+        </div>
+
+        <div class="card blue">
+
+            🚗
+            <span id="vehicle-count">
+                0
+            </span>
+
+        </div>
+
+        <div class="card red">
+
+            🚑
+            <span id="emergency-status">
+                NORMAL
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- SIGNAL PANEL -->
+
+   <div class="dashboard-grid">
+
+    <!-- LIVE VIDEO -->
+
+    <div class="video-box">
+
+        <h2>
+            Live Traffic Signal Monitoring
+        </h2>
+
+        <img
+            src="/slow_video_feed"
+            class="live-video"
+        >
+
+    </div>
+
+    <!-- SIGNAL PANEL -->
+
+    <div class="chart-box">
+
+        <h2>
+            Live Signal Monitoring
+        </h2>
+
+        <br>
+
+        <h1
+            id="main-signal"
+            style="
+                font-size:80px;
+                text-align:center;
+                color:green;
+            ">
+
+            🟢 GREEN
+
+        </h1>
+
+        <br>
+
+        <h2
+            style="
+                text-align:center;
+            ">
+
+            Remaining Time:
+            <span id="main-time">
+                10
+            </span>
+            sec
+
+        </h2>
+
+        <br><br>
+
+        <p>
+            ✅ Adaptive Signal Timing
+        </p>
+
+        <br>
+
+        <p>
+            ✅ Emergency Priority Control
+        </p>
+
+        <br>
+
+        <p>
+            ✅ AI Traffic Density Analysis
+        </p>
+
+        <br>
+
+        <p>
+            ✅ Smart Signal Optimization
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+let countdown = 10;
+
+
+// LOAD LIVE TRAFFIC DATA
+async function loadSignalData() {
+
+    try {
+
+        const response = await fetch("/traffic_data");
+
+        const data = await response.json();
+
+        // VEHICLE COUNT
+        document.getElementById("vehicle-count")
+        .innerText = data.vehicle_count;
+
+        // EMERGENCY STATUS
+        document.getElementById("emergency-status")
+        .innerText = data.emergency_status;
+
+        // SET SIGNAL TIME
+        countdown = data.signal_time;
+
+        // TRAFFIC-BASED SIGNAL LOGIC
+
+        if(data.emergency_status == "ACTIVE") {
+
+            document.getElementById("signal-status")
+            .innerText = "PRIORITY";
+
+            document.getElementById("main-signal")
+            .innerText = "🚑 PRIORITY";
+
+            document.getElementById("main-signal")
+            .style.color = "red";
+        }
+
+        else if(data.traffic_density == "HIGH") {
+
+            document.getElementById("signal-status")
+            .innerText = "RED";
+
+            document.getElementById("main-signal")
+            .innerText = "🔴 RED";
+
+            document.getElementById("main-signal")
+            .style.color = "red";
+        }
+
+        else if(data.traffic_density == "MEDIUM") {
+
+            document.getElementById("signal-status")
+            .innerText = "YELLOW";
+
+            document.getElementById("main-signal")
+            .innerText = "🟡 YELLOW";
+
+            document.getElementById("main-signal")
+            .style.color = "#f4b400";
+        }
+
+        else {
+
+            document.getElementById("signal-status")
+            .innerText = "GREEN";
+
+            document.getElementById("main-signal")
+            .innerText = "🟢 GREEN";
+
+            document.getElementById("main-signal")
+            .style.color = "green";
+        }
+
+    }
+
+    catch(error) {
+
+        console.log(error);
+
+    }
+}
+
+
+// COUNTDOWN TIMER
+function startCountdown() {
+
+    setInterval(() => {
+
+        if(countdown > 0) {
+
+            countdown--;
+
+        }
+
+        document.getElementById("signal-time")
+        .innerText = countdown + " sec";
+
+        document.getElementById("main-time")
+        .innerText = countdown;
+
+    }, 1000);
+}
+
+
+// START SYSTEM
+loadSignalData();
+
+startCountdown();
+
+
+// REFRESH TRAFFIC DATA
+setInterval(loadSignalData, 10000);
+
+</script>
+
+</body>
+
+</html>

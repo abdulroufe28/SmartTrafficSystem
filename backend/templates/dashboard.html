@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Smart Traffic Dashboard</title>
+
+    <link rel="stylesheet"
+          href="/static/css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- SIDEBAR -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            🚦 Smart Traffic
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/dashboard">
+                    📊 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="/analytics">
+                    📈 Analytics
+                </a>
+            </li>
+
+            <li>
+                <a href="/emergency">
+                    🚑 Emergency
+                </a>
+            </li>
+
+            <li>
+                <a href="/signals">
+                    🚦 Signal Control
+                </a>
+            </li>
+
+            <li>
+                <a href="/reports">
+                    📄 Reports
+                </a>
+            </li>
+
+            <li>
+                <a href="/settings">
+                    ⚙️ Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="/">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-content">
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+            <h1>
+                Dashboard Overview
+            </h1>
+
+            <h3>
+                System Status :
+                <span style="color:green">
+                    Online
+                </span>
+            </h3>
+
+        </div>
+
+        <!-- CARDS -->
+
+        <div class="cards">
+
+            <div class="card blue">
+
+                🚗
+                <span id="vehicle-count">
+                    0 Vehicles
+                </span>
+
+            </div>
+
+            <div class="card green">
+
+                🚦
+                <span id="traffic-density">
+                    LOW
+                </span>
+
+            </div>
+
+            <div class="card yellow">
+
+    🚦
+                 <span id="signal-time">
+                   10 sec
+                  </span>
+
+            </div>
+
+            <div class="card red">
+
+                🚑
+                <span id="emergency-count">
+                    0
+                </span>
+
+                Emergency Alerts
+
+            </div>
+
+            <div class="card purple">
+
+                📍
+                <span id="junction-count">
+                    1
+                </span>
+
+                Junctions Active
+
+            </div>
+
+        </div>
+
+        <!-- DASHBOARD GRID -->
+
+        <div class="dashboard-grid">
+
+            <!-- LIVE VIDEO -->
+
+            <div class="video-box">
+
+                <h2>
+                    Live Traffic Monitoring
+                </h2>
+
+                <img
+                    src="/video_feed"
+
+                    class="live-video"
+
+                    style="
+                        width:100%;
+                        height:500px;
+                        object-fit:cover;
+                        border-radius:15px;
+                        border:3px solid #ddd;
+                    "
+                >
+
+            </div>
+
+            <!-- BAR CHART -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Traffic Density Analysis
+                </h2>
+
+                <canvas id="barChart"></canvas>
+
+            </div>
+
+            <!-- PIE CHART -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Vehicle Distribution
+                </h2>
+
+                <canvas id="pieChart"></canvas>
+
+            </div>
+
+            <!-- ALERT BOX -->
+
+            <div class="chart-box">
+
+                <h2>
+                    Emergency Alerts
+                </h2>
+
+                <br>
+
+                <p>
+                    🚑 Ambulance detected at Junction B
+                </p>
+
+                <br>
+
+                <p>
+                    🚦 Signal priority enabled
+                </p>
+
+                <br>
+
+                <p>
+                    🚗 Heavy traffic at Junction D
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+   
+
+
+<script src="/static/js/app.js"></script>
+
+
+</body>
+
+</html>
